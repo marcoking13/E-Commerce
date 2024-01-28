@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://fonts.cdnfonts.com/css/amazon-ember" rel="stylesheet">
+    <link href ='./css/main.css' rel="stylesheet"/>
+    <link href ='./css/detail.css' rel="stylesheet"/>
+    <link href ='./../css/admin.css' rel="stylesheet"/>
+
+  </head>
+  <body>
+
+    <main class="container-fluid relative padding-5">
+
+        <%- include("./layouts/admin/product_form.ejs") %>
+
+        <div class="main_interface active">
+
+
+
+          <div class="row all_products_row margin-top-5 ">
+            <p class="all_products_title"> All Your Products</p>
+            <% console.log(products) %>
+             <% if(products.length > 0) {%>
+
+                <% for(var i =0; i <products.length; i++){ %>
+
+                  <div class="col-3">
+
+                      <div class="product_container">
+
+                          <img class="width-50 margin-left-25"src = <%=products[i].thumbnail %> />
+                          <p class="product_name" ><%=products[i].title  %></p>
+                          <p class="product_price" >$<%= products[i].price %>.99</p>
+                          <p class="product_description" ><%= products[i].description  %></p>
+
+                          <div class="row">
+
+                            <div class="col-6">
+                              <button  class="btn edit_button" _id = <%= products[i]._id %>> Edit </button>
+                            </div>
+
+                            <div class="col-6">
+                              <form action = "/product/delete" method="POST" >
+                                <input type='hidden' value =  <%= products[i]._id %> name = "id" />
+                                <button  class="btn delete_button" type="submit" > Delete </button>
+                              </form>
+                            </div>
+
+                          </div>
+
+                      </div>
+
+                  </div>
+
+                <%}%>
+
+              <%}%>
+
+              <div class="col-12">
+                  <button class="width-100 btn add-product margin-top-5">+ Add Product</button>
+              </div>
+
+          </div>
+
+        </div>
+
+    </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src = "./../js/admin/edit_product.js" ></script>
+  <%- include("./layouts/end.ejs") %>
