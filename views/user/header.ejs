@@ -3,7 +3,7 @@
     <div class="row return_row" >
 
       <div class="col-1 no-padding ">
-          <img src = "./images/new_logo.png" class=" margin-top-7_5 logo" alt = "logo" class="logo"/>
+      <a href = "/">    <img src = "./images/new_logo.png" class=" margin-top-7_5 logo" alt = "logo" class="logo"/> </a>
       </div>
 
       <div class="col-2  no-padding margin-top-2_5">
@@ -38,17 +38,19 @@
         </div>
       <%}%>
       <div class="col-1" style="padding:0%;margin-left:-2.5%;margin-top:2%;">
-          <p class="return_to">Return / Orders </p>
+          <p class="return_to">Your Orders </p>
       </div>
 
 
       <div class="col-1 return_col relative no-padding margin-top-2_5" >
         <% if(isAuthenticated){ %>
-          <img src="./images/cart.png" class="return_cart" />
+          <a href="/cart">
+            <img src="./images/cart.png" class="return_cart" />
 
-          <div class="bubble_cart_return">
-              <p class="margin-top-20" >0</p>
-          </div>
+            <div class="bubble_cart_return">
+                <!-- <p class="margin-top-20 white" ><%= cart.items.length %> </p> -->
+            </div>
+          </a>
             <%}else{%>
               <a href = "/create_account">
                 <button class="btn create_account" >Create Account </button>

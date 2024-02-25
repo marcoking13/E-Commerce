@@ -27,6 +27,11 @@ const user = new Schema(
             ref:"Product",
             required:true
           },
+          data:{
+            type:Object,
+            ref:"Product_Data",
+            required:true
+          },
           quantity:{
             type:Number,
             required:true
@@ -43,36 +48,47 @@ user.methods.ClearCart = function(){
   }
   this.save();
 }
+
 user.methods.AddCart = function(id){
 
   Product.findById(id).then((item) =>{
     console.log(item);
     if (this.cart.items.length <= 0) {
       this.cart = {
-        items:{
+        items:[{
           prodId:item._id,
+          data:item,
           quantity:1
-        }
+        }]
       }
-      console.log(this.cart);
+    //  console.log(this.cart);
       this.save();
       return;
     }else{
-         var exisiting_product_index = this.cart.items.findIndex(prod => prod.prodId == new ObjectId(id));
+
+         var exisiting_product_index = this.cart.items.findIndex(prod => prod.prodId == id);
          var existing_product = this.cart.items[exisiting_product_index];
          var items = [...this.cart.items];
-         var updated_product = {...item}
-
+         var updated_product = {
+           prodId:item._id,
+           data:item,
+           quantity:item.quantity
+         };
+         console.log(updated_product)
          if(existing_product){
-           updated_product.qty = updated_product.qty + 1;
+           updated_product.quantity = updated_product.quantity + 1;
            items[exisiting_product_index] = updated_product;
-
          }else{
-           updated_product.qty = 1;
-           items.push(updated_product);;
+           updated_product.quantity = 1;
+           items.push(updated_product);
          }
-
-       }
+         var updated_cart = {
+           items:items
+         }
+         console.log(updated_cart);
+         this.cart = updated_cart;
+         this.save();
+        }
    })
 }
 

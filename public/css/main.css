@@ -17,6 +17,22 @@
 .create_account{
   background:white;color:black;border:none;font-size:13px;padding:5px;margin-top:15%;
 }
+.margin-left-25{
+  margin-left:25%;
+}
+.cart_box{
+  padding-top:2.5%;
+  padding-bottom:2.5% !important;
+}
+.cart_text{
+  margin-top: 10%;
+}
+.width-50{
+  width:50%;
+}
+.cart_img{
+  margin-top:10%;
+}
 .return_col{
   padding:0%;margin-left:-2.5%;margin-top:2%;
 }
@@ -37,7 +53,7 @@ a{
   width:40%;margin-left:20%;filter:brightness(199)
 }
 .return_cart_bubble{
-  background:#242424;color:white;text-align:center;border-radius:50%;height:30px;width:30px;font-size:10px;position:absolute;top:50%;right:5%
+  background:#242424;color:white;text-align:center;border-radius:50%;height:30px;width:30px;font-size:10px;position:absolute;top:30%;right:5%
 }
 .product_form_row{
   width:90%;margin-left:5%
@@ -136,7 +152,7 @@ a{
   width:40%;margin-left:20%;filter:brightness(199)
 }
 .bubble_cart_return{
-  background:#242424;color:white;text-align:center;border-radius:50%;height:30px;width:30px;font-size:10px;position:absolute;top:40%;right:25%
+  background:#242424;color:white;text-align:center;border-radius:50%;height:30px;width:30px;font-size:10px;position:absolute;top:20%;right:25%
 }
 .product_item{
   width:20%;padding:2%;position:absolute;
@@ -207,7 +223,7 @@ a{
 }
 .product_name_sub{
   font-weight: normal !important;
-  font-size:16px !important;
+  font-size:15px !important;
 }
 .company_name {
   text-align: left;
@@ -216,7 +232,7 @@ a{
   padding-top: 5%;
 }
 .product_box{
-  height:100%;
+  padding-bottom:2.5%;
   text-transform:capitalize;
 }
 .product_price_original{
@@ -521,22 +537,28 @@ body {
   font-weight: 400;
   color: black;
 }
+.product_name_sub{
+  font-size:20px;
+}
 
 .product_box {
-  width: 100%;
   background: white;
   text-align: center;
   padding: 5%;
-  padding-bottom:40%;
-
+  width:100%;
+}
+.product_description_display{
+  font-size:14px;
+  text-align:left;
 }
 .product_image {
-  width: 100%;
-  height: 50%;
+  width: 150px ;
+  height:150px ;
+  margin-left:5%;
 }
 .product_name {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 16px;
   text-align: left;
   color: black;
 }
@@ -555,26 +577,33 @@ body {
   padding-left: 2.5%;
 }
 
-.signup_title {
-  font-size: 15px;
-  font-weight: 700;
-  color: black;
-  text-align: left;
+.white{
+  color:white;
 }
-
+.signup_title {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+}
+.login_box p {
+  color:white !important;
+}
+.login_button{
+  color:white !important;
+}
 .account_box {
-  height: 80vh;
   background: white;
   padding: 2.5%;
-  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8), rgb(255, 255, 255)), url("./../images/graphic_.png");
+  background-image: url("./../images/b_3.png");
   background-position: left;
 }
 
 .signup_box {
   padding: 2.5%;
   position: relative;
-  margin-top: 10%;
-  height: 40%;
+  color:white;
+  margin-top: 0%;
 }
 
 .google_login_button {
@@ -582,21 +611,19 @@ body {
   margin-top: 5%;
   color: black;
   font-weight: 400;
-  font-size: 16px;
-  box-shadow: 0px 5px 10px #38B6FF;
+  font-size: 18px;
   border: 1px solid #38B6FF;
   background: #38B6FF;
   color: white;
-  margin-left: 5%;
   padding: 2.5%;
 }
 
 .google_login_logo {
   float: left;
-  width: 30px;
+  width: 40px;
   background: white;
-  height: 30px;
-  margin-top: -0.5%;
+  height: 40px;
+  margin-top: 1%;
   margin-right: 2.5%;
   display: inline;
 }
@@ -609,7 +636,7 @@ body {
 }
 
 .login_box {
-  margin-top: 10%;
+  margin-top: 0%;
 }
 
 .google_link {
@@ -625,29 +652,48 @@ body {
 }
 
 .login_button {
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
   margin-top: 5%;
+  border:1px solid #e6e6e6;
+  border-radius:5px;
   border-bottom: 1px solid #e6e6e6;
   text-align: center;
   color: black;
 }
+.fix_x{
+  height:70vh;
+  position: relative;
+}
 
+.fix_y{
+  top:90%;
+  position: absolute;
+  width: 100%;
+  left:0%;
+}
+.catagory_price_new{
+  font-size:16px;
+  text-align: left;
+}
 .signup_button {
   background: white;
   padding: 2.5%;
   text-align: center;
   color: black;
   border: 1px solid #e6e6e6;
+  box-shadow: 0px 0px 4px #e6e6e6;
   border-radius: 10px;
   z-index: 99;
   font-size: 16px;
   position: relative;
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
   margin-top: 20%;
 }
-
+.catagory_image{
+  width:5%;
+}
 .products_banner {
   background: white;
   margin-top: 5%;

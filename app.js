@@ -25,17 +25,17 @@ app.set("view engine","ejs");
 
 const fileStorage = multer.diskStorage({
   destination: (req,file,cb) =>{
-    cb(null,file.originalname)
+    cb(null,"images")
   },
   filename: (req,file,cb) =>{
-    cb(null,file.originalname);
+    cb(null,new Date().toISOString().replace(/:/g, '-') + file.originalname);
   }
 })
 
 // app.use(cookieParser());
 // app.use(csrf);
 app.use(session({secret:"43489438994388948949842894389",saveUninitialized:false,store:StoreSession}));
-app.use(multer({fileStorage}).single("image"));
+app.use(multer({storage:fileStorage}).single("thumbnail"));
 app.use((req,res,next)=>{
 
   if(req.session.user){
@@ -49,10 +49,8 @@ app.use((req,res,next)=>{
 });
 
 app.use(bodyParser.urlencoded({extended:false}));
-
-
-
 app.use(express.static(path.join(__dirname,"public")));
+app.use("/images",express.static(path.join(__dirname,"images")))
 
 app.use(user_routes);
 app.use(admin_routes);
@@ -66,9 +64,14 @@ app.get("/error",((req,res)=>{
 
 
 
+
+
+
 app.use((error,req,res,next)=>{
+  res.locals.error = error;
+  const status = error.status || 500;
   console.log(error);
-  res.status(error.statusCode).render(path.join(rootDir,"views","error.ejs"),{
+  res.status(500).render(path.join(rootDir,"views","error.ejs"),{
     errMessage:error,
     error:error,
     statusCode:error.statusCode
@@ -76,7 +79,6 @@ app.use((error,req,res,next)=>{
 });
 
 app.use((req,res)=>{
-  console.log("S");
   res.render(
     path.join(rootDir,"views","404.ejs")
   )

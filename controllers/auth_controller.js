@@ -73,7 +73,6 @@ const PostUserLogin = (req,res,next) => {
       }
     });
   }else{
-    console.log(username,password)
     res.status(202).render(path.join(rootDir,"views","user","login.ejs"),
     {
       userInput:{
@@ -155,7 +154,7 @@ const PostResetEmail = (req,res,next) =>{
   if(errors.isEmpty()){
     crypto.randomBytes(32,(err,buffer)=>{
     if(err){
-      
+
       res.redirect("/reset");
 
     }

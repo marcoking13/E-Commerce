@@ -8,7 +8,7 @@
 
         <p class="modal_title_add"> Add a New Product </p>
 
-        <form method="POST" action="/admin/add_product" id = "product_form">
+        <form method="POST" action="/admin/add_product" id = "product_form " enctype="multipart/form-data">
 
           <div class="row product_form_row">
 
@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-4">
-              <input class=" width-100 input_form image_input" name="thumbnail"  placeholder="Image URL">
+              <input type='file' class=" width-100 input_form image_input" name="thumbnail"  placeholder="Image URL">
             </div>
 
             <div class="col-6">

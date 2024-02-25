@@ -1,21 +1,40 @@
 
 <div class="catagory_products container-fluid">
-<% for(var k = 0; k < 5; k++) { %>
+
+
+<% for(var k = 0; k < catagories.length; k++) { %>
 <div class="catagory_row width-100">
-  <p class="catagory_title"> Catagory </p>
+  <% var c = "Catagory"; %>
+  <% if(catagories[k].catagory){ %>
+    <% c = catagories[k].catagory %>
+   <%}%>
+    <p class="catagory_title"> <%= c %> </p>
 
   <div class="row">
     <% for(var i = 0; i <= 3; i++) { %>
     <div class="col-3 no-margin-left">
-    <div class="catagory_box  width-100">
+    <div class="product_box fix_x width-100">
+      <% var name = "Name Will Be Placed Here" %>
+      <% var img = "./images/catagory_3.png" %>
+      <% var price = "[N/A]" %>
+      <% var description = "" %>
 
-      <p class="catagory_product_name">Top Ranked Deals</p>
+      <% if(catagories[k].items[i]){ %>
+        <% name = catagories[k].items[i].title.substring(0, 30) + "..."; %>
+        <% img = "./"+catagories[k].items[i].thumbnail %>
+        <% price = catagories[k].items[i].price %>
+        <% description = catagories[k].items[i].description.substring(0, 100) + "...";  %>
+      <%}%>
+      <p class="catagory_name"><%= name %></p>
 
-      <img class="catagory_image"src = "./images/catagory_3.png"/>
+      <img class="product_image"src = "<%= img %>" />
 
       <div class="product_text_box">
-        <p class="catagory_price ">$ [N/A]</p>
-        <a href = "#"><p class="catagory_detail">See Details</p></a>
+        <p class="product_description_display"><%=description %></p>
+        <p class="catagory_price_new ">$ <%= price %></p>
+        <% if(catagories[k].items[i]){ %>
+            <a href = <%="/product/"+catagories[k].items[i]._id %>><p class="product_detail fix_y">See Details</p></a>
+        <%}%>
       </div>
 
     </div>
