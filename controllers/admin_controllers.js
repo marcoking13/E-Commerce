@@ -134,7 +134,7 @@ const EditOneProduct = async (req,res,next) =>{
     product.userId = 0;
     product.discount = body.discount;
     var products = new Product(product);
-    products.save().then((data)=>{;
+    products.save().then((data)=>{
       res.redirect("/admin/add_product");
     })
   }).catch((err)=>{

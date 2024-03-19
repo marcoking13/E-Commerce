@@ -9,15 +9,19 @@ var max = 4;
 
 
 for(var i =0; i <bubbles.length; i++){
+
   bubbles[i].addEventListener("click",(e)=>{
     toggle_counter(e);
   });
+
 }
+
 function toggle_counter(e){
 
   var index = e.target.getAttribute("index");
 
   showcase_counter = index;
+
 
   if(showcase_counter < 1){
     showcase_counter = max;
@@ -25,18 +29,27 @@ function toggle_counter(e){
     showcase_counter = index;
   }
 
-  for(var i =0; i <= max; i++){
-    showcase_banner.classList.remove(`header--${i}`);
+  for(var i =1; i < max; i++){
+    var banner_ = document.querySelector(`.header--${i}`);
+    console.log(banner_);
+    banner_.classList.remove(`active`);
+    banner_.classList.add(`inactive`);
+
   }
 
+
   for(var i =0; i <bubbles.length; i++){
+
     if(index != bubbles[i].getAttribute("index")){
       bubbles[i].classList.remove("bubble_showcase--active");
     }else if(index == bubbles[i].getAttribute("index")){
       bubbles[i].classList.add("bubble_showcase--active");
     }
+
   }
-  console.log(showcase_counter);
-  showcase_banner.classList.add(`header--${showcase_counter}`)
+
+  var new_banner = document.querySelector(`.header--${showcase_counter}`);
+  new_banner.classList.remove(`inactive`);
+  new_banner.classList.add(`active`)
 
 }
