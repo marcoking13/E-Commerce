@@ -1,19 +1,23 @@
 var express = require("express");
 var ejs = require("ejs");
 var app = express();
+var cors = require("cors");
 var bodyParser = require("body-parser");
 const csrf = require('csrf');
 const bcrypt = require("bcrypt")
 var path = require("path");
+var session = require("express-session");
+var multer = require("multer");
+var mongoose = require("mongoose");
+var MongoDBStore = require('connect-mongodb-session')(session);
 var port = 3003 ;
 var user_routes = require("./routes/user_routes.js");
 var admin_routes = require("./routes/admin_routes.js");
 var auth_routes = require("./routes/auth_routes.js");
-var session = require("express-session");
-var mongoose = require("mongoose");
 var rootDir = require("./util/path.js");
-var multer = require("multer");
-var MongoDBStore = require("connect-mongodb-session")(session);
+
+
+
 var StoreSession =  new MongoDBStore({
   uri:"mongodb+srv://mawile12:sableye12@cluster0.mv38jgm.mongodb.net/shop?",
   collection:"session"
@@ -48,9 +52,11 @@ app.use((req,res,next)=>{
   }
 });
 
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname,"public")));
 app.use("/images",express.static(path.join(__dirname,"images")))
+app.use(cors());
 
 app.use(user_routes);
 app.use(admin_routes);

@@ -9,7 +9,7 @@
       <% for(var i =0; i <5; i++){%>
 
         <div class="col-1-of-3">
-            <div class="product_box">
+            <div class="product_box shadow_border">
 
                 <p class="product_name">Top Ranked Deals</p>
                 <img class="product_image"src = "./images/catagory_3.png"/>
@@ -33,7 +33,7 @@
         <div class="col-1-of-3 margin-top-5 padding-top-2_5">
 
               <a href = "/product/<%=items.top_deals[i].id%>">
-              <div class="product_box">
+              <div class="product_box shadow_border">
 
               <p class="product_name">Top Deals</p>
               <% new_name = items.top_deals[i].title.substring(0, 35) + "..."; %>

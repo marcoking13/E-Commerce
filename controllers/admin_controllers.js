@@ -1,20 +1,23 @@
 var path = require("path");
 var rootDir = require("./../util/path.js");
 var fs = require("fs");
-var PDFDocument = require("pdfkit");
-var fileHelper = require("./../util/file.js");
-let totalItems;
 var ObjectId = require("mongodb").ObjectId;
+var PDFDocument = require("pdfkit");
 
+let totalItems;
+const ITEMS_PER_PAGE = 3;
+var page = 1;
+
+var StatusError = require("./../util/status_error.js");
+var fileHelper = require("./../util/file.js");
 const Product = require("./../models/products.js");
 const Order = require("./../models/orders.js");
 
-const ITEMS_PER_PAGE = 3;
-var page = 1;
-var ObjectID = require("mongodb").ObjectID;
 
 const GetMainPage = (req,res,next) => {
+
      page = parseInt(req.query.page);
+
      Product.find({userId:req.user._id})
       .count()
       .then((products_)=>{
@@ -36,20 +39,19 @@ const GetMainPage = (req,res,next) => {
         first:1,
         page:page
       });
+
     }).catch((err)=>{
-      var error = new Error();
-      error.msg = err;
-      error.statusCode = 500;
-      console.log(error);
-      next(error);
+      StatusError(next,err,500);
     });
 
 }
 
 const DeleteOneProduct = (req,res,next) =>{
+
   var id = req.body.id;
 
   Product.deleteOne({_id:new ObjectId(id)}).then((response)=>{
+
     if(response){
       console.log("Deleted Successfully");
     }else{
@@ -59,45 +61,37 @@ const DeleteOneProduct = (req,res,next) =>{
     res.redirect("/admin/add_product");
 
   }).catch((err)=>{
-    var error = new Error();
-    error.msg = err;
-    error.statusCode = 500;
-    next(error);
+    StatusError(next,err,500);
   });
 
 }
 
 const DeleteOneProductClient = (req,res,next) =>{
+
   var id = req.params.id;
-  console.log(id);
+
   Product.deleteOne({_id:new ObjectId(id)}).then((response)=>{
+
     if(response){
       console.log("Deleted Successfully");
     }else{
       console.log("Could not Delete");
     }
-    console.log(response);
+
     res.status(200).json({message:"Deleted Successfully"});
 
   }).catch((err)=>{
-    var error = new Error();
-    error.msg = err;
-    error.statusCode = 500;
-    next(error);
+    StatusError(next,err,500);
   });
 
 }
-
 
 const GetProducts = async (req,res,next) =>{
 
   var products = Product.find({}).then((data)=>{
     res.redirect("/admin/add_product")
   }).catch((err)=>{
-    var error = new Error();
-    error.msg = err;
-    error.statusCode = 500;
-    next(error);
+    StatusError(next,err,500);
   });
 
 }
@@ -107,15 +101,14 @@ const FindOneProduct = async (req,res,next) =>{
   var _id = req.params.id;
 
   var products = Product.findById(_id).then((data)=>{
-      var new_product = data;
-      return res.json(new_product);
-    }).catch((err)=>{
-      var error = new Error();
-      error.msg = err;
-      error.statusCode = 500;
-      next(error);
-    });
 
+      var new_product = data;
+
+      return res.json(new_product);
+
+    }).catch((err)=>{
+      StatusError(next,err,500);
+    });
 
 }
 
@@ -124,6 +117,7 @@ const EditOneProduct = async (req,res,next) =>{
   var body = req.body;
 
   Product.findById(body._id).then((product)=>{
+
     product.title = body.title;
     product.thumbnail = body.thumbnail;
     product.description = body.description;
@@ -133,15 +127,15 @@ const EditOneProduct = async (req,res,next) =>{
     product.quantity = body.quantity;
     product.userId = 0;
     product.discount = body.discount;
+
     var products = new Product(product);
+
     products.save().then((data)=>{
       res.redirect("/admin/add_product");
-    })
+    });
+
   }).catch((err)=>{
-    var error = new Error();
-    error.msg = err;
-    error.statusCode = 500;
-    next(error);
+    StatusError(next,err,500);
   });
 
 }
@@ -149,14 +143,15 @@ const EditOneProduct = async (req,res,next) =>{
 const GetOrderPage =(req,res,next)=>{
 
   Order.find({"user.userId":req.user._id}).then((orders)=>{
-    console.log(orders);
     res.render(path.join(rootDir,"views","layouts","admin","orders.ejs"),{orders:orders});
   });
 
 }
 
 const DownloadOrder = (req,res,next) =>{
+
   const order_id = req.params.orderId;
+
   Order.findById(order_id).then((order)=>{
 
     var user_id = order.user.userId ;
@@ -199,18 +194,17 @@ const DownloadOrder = (req,res,next) =>{
       file_stream.pipe(res);
       pdfDoc.end();
     }
+
   }).catch((err)=>{
-    var error = new Error();
-    error.msg = err;
-    error.statusCode = 500;
+    StatusError(next,err,500);
+  });
 
-    next(error);
-
-})
 }
+
 const AddProduct = async (req,res,next) =>{
 
     var body  = req.body;
+
     var schema = {
       title:body.title,
       quantity:body.quantity,
@@ -226,16 +220,15 @@ const AddProduct = async (req,res,next) =>{
     var products = new Product(schema);
 
     products.save().then((data)=>{
-
+      Product.find().then((r)=>{console.log(r.length)}).then(()=>{
+      console.log(data);
       res.redirect("/admin/add_product")
+    });
     }).catch((err)=>{
-      var error = new Error();
-      error.msg = err;
-      error.statusCode = 500;
-      next(err);
+      StatusError(next,err,500);
     });
 
-  }
+}
 
 module.exports.DeleteOneProduct = DeleteOneProduct;
 module.exports.GetMainPage = GetMainPage;

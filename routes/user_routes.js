@@ -9,6 +9,9 @@ router.get("/cart",userControllers.GetCartPage);
 router.get("/get_products",userControllers.GetProducts);
 router.get("/product/:_id",userControllers.GetProductDetail);
 router.get("/orders/",userControllers.GetOrders);
+router.get("/catagories",userControllers.GetCatagories);
+router.post("/catagories",userControllers.ToggleCatagories);
+router.post("/search/product",userControllers.GetSearchResults);
 
 router.post("/cart",userControllers.AddToCart);
 router.post("/delete/cart",userControllers.AddToCart);
